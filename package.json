@@ -1,0 +1,24 @@
+{
+  "name": "favor-tool",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "chrome-types": "^0.1.281",
+    "sql.js": "^1.10.3",
+    "sqlite3": "^5.1.7",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.23",
+    "@types/chrome": "^0.0.266",
+    "@types/sql.js": "^1.4.9",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0"
+  }
+}
