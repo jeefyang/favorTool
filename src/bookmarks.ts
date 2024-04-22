@@ -6,8 +6,9 @@ function uint8arrayToBase64(u8Arr: Uint8Array) {
     let index = 0;
     let length = u8Arr.length;
     let result = '';
-    let slice;
+    let slice: number[];
     while (index < length) {
+        //@ts-ignore
         slice = u8Arr.subarray(index, Math.min(index + CHUNK_SIZE, length));
         result += String.fromCharCode.apply(null, slice);
         index += CHUNK_SIZE;
@@ -17,7 +18,10 @@ function uint8arrayToBase64(u8Arr: Uint8Array) {
     return btoa(result);
 }
 
-const rebuildBookmarks = (data: folderType, books, imgdblist, urldblist) => {
+const rebuildBookmarks = (data: folderType, books: chrome.bookmarks.BookmarkTreeNode, imgdblist: initSqlJs.SqlValue[][], urldblist: initSqlJs.SqlValue[][]) => {
+    if (!books.children) {
+        return
+    }
     for (let i = 0; i < books.children.length; i++) {
         let c = books.children[i]
         // 文件夹
@@ -35,11 +39,13 @@ const rebuildBookmarks = (data: folderType, books, imgdblist, urldblist) => {
             continue
         }
         // console.log(c.id, c.title, c.url)
-        let dburl = urldblist.find(d => d[1] == c.url)
+        //@ts-ignore
+        let dburl: initSqlJs.SqlValue[] = urldblist.find(d => d[1] == c.url)
         let base64 = ""
         try {
-            let dbimg = imgdblist.find(d => d[1] == dburl[2])
-            base64 = `data:image/jpeg;base64,${uint8arrayToBase64(dbimg[3])}`
+            //@ts-ignore
+            let dbimg: initSqlJs.SqlValue[] = imgdblist.find(d => d[1] == dburl[2])
+            base64 = `data:image/jpeg;base64,${uint8arrayToBase64(<any>dbimg[3])}`
         }
         catch {
             console.warn("无法找到图标", [c.id, c.title, c.url])

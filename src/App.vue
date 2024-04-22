@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue'
 
 // import sqlite from "sqlite3"
@@ -8,7 +8,7 @@ import { ref, onMounted } from "vue"
 
 
 
-const getUrl = (u) => {
+const getUrl = (u: string) => {
   return `file:///C:/Users/${u}/AppData/Local/Microsoft/Edge/User Data/Default/Favicons`
 }
 
@@ -20,7 +20,7 @@ const getfilename = () => {
   return `favorites_${year}_${month}_${day}.json`
 }
 
-const updateFilename = async (v) => {
+const updateFilename = async (v: boolean) => {
   if (v) {
     fixUploadFilename.value = fixUploadFilenameCache.value
   }
@@ -147,11 +147,6 @@ port.onMessage.addListener((m) => {
   </div>
   <div>
     <button @click="updateUpload">更新上传</button>
-  </div>
-  <div>
-    <div>上传路径:</div>
-    <input type="text:">
-    <button @click="onclick">上传2</button>
   </div>
   <div>{{ msg }}</div>
 </template>

@@ -23,8 +23,8 @@ chrome.sidePanel
     .setPanelBehavior({ openPanelOnActionClick: true })
     .catch((err: any) => console.log(err))
 // console.log("xx")
-chrome.runtime.onMessage.addListener((req, sender, sendRes) => {
-    const { action, payload } = req
+chrome.runtime.onMessage.addListener((req, _sender, sendRes) => {
+    // const { action, payload } = req
     console.log(req)
     sendRes("content got!")
 })
@@ -39,7 +39,7 @@ chrome.runtime.onConnect.addListener((port) => {
         })
 
     }
-    port.onDisconnect.addListener(msg => {
+    port.onDisconnect.addListener(_msg => {
         console.log("close")
     })
 })
