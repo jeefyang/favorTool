@@ -5,7 +5,6 @@ const updateUpload = async (uploadUrl: string, name: string, dbfile: string) => 
     let data = await getbookmarks(dbfile)
     let str = JSON.stringify(data)
     const fileContent = new File([str], name, { type: "" })
-    console.log(fileContent)
     const formdata = new FormData()
     formdata.append("file", fileContent)
     const request = new Request(`${uploadUrl}upload?forcefilename=${encodeURI(name)}`, {
@@ -33,8 +32,14 @@ chrome.runtime.onConnect.addListener((port) => {
     if (port.name == "updateload") {
         port.onMessage.addListener(async msg => {
             console.log(msg)
-            await updateUpload(msg.uploadUrl, msg.name, msg.dbfile)
-            port.postMessage("收藏夹上传成功")
+            if (msg.type == "upload") {
+                await updateUpload(msg.uploadUrl, msg.name, msg.dbfile)
+                port.postMessage(`${new Date(new Date().getTime())}\n收藏夹上传成功`)
+            }
+            else if (msg.type == "test") {
+                let books = await chrome.bookmarks.getTree()
+                console.log(books?.[0]?.children?.[0])
+            }
             // console.log(a)
         })
 

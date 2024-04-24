@@ -82,7 +82,9 @@ export const getbookmarks = async (dbfile: string) => {
         locateFile: file => `https://sql.js.org/dist/${file}`
     });
     const dataPromise = fetch(dbfile).then(s => s.arrayBuffer())
-    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+    // const [SQL, buf] = await Promise.all([sqlPromise, dataPromise])
+    const SQL = await sqlPromise
+    const buf = await dataPromise
     const db = new SQL.Database(new Uint8Array(buf));
     const imgcontents = db.exec("SELECT * FROM favicon_bitmaps");
     const urlcontents = db.exec("SELECT * FROM icon_mapping");

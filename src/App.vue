@@ -110,9 +110,13 @@ const userUpdateIconUrl = async () => {
 const updateUpload = async () => {
 
   let name = await updateFilename(false)
-  port.postMessage({ uploadUrl: uploadUrl.value, name: name, dbfile: iconUrl.value })
+  port.postMessage({ type: "upload", uploadUrl: uploadUrl.value, name: name, dbfile: iconUrl.value })
 
 }
+
+// const ontest = () => {
+//   port.postMessage({ type: "test" })
+// }
 
 port.onMessage.addListener((m) => {
 
@@ -127,7 +131,7 @@ port.onMessage.addListener((m) => {
     <input type="text" v-model="user">
   </div>
   <div>
-    <div>图标路径:</div>
+    <div>图标db路径:</div>
     <input type="text" v-model="iconUrl">
   </div>
   <div>
@@ -147,6 +151,7 @@ port.onMessage.addListener((m) => {
   </div>
   <div>
     <button @click="updateUpload">更新上传</button>
+    <!-- <button @click="ontest">测试</button> -->
   </div>
   <div>{{ msg }}</div>
 </template>
@@ -165,5 +170,9 @@ port.onMessage.addListener((m) => {
 
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+
+div{
+  white-space:pre-line;
 }
 </style>
