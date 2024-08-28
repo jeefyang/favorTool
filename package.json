@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build --mode production --outDir ./.output",
     "preview": "vite preview"
   },
   "dependencies": {
     "chrome-types": "^0.1.281",
-    "sql.js": "^1.10.3",
+    "sql.js": "^1.11.0",
     "sqlite3": "^5.1.7",
     "vue": "^3.4.21"
   },

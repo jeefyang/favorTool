@@ -1,10 +1,11 @@
 // import sqlite from "sqlite3"
 import { getbookmarks } from "./bookmarks"
-
+/** 上传文件 */
 const updateUpload = async (uploadUrl: string, name: string, dbfile: string) => {
     let data = await getbookmarks(dbfile)
     let str = JSON.stringify(data)
     const fileContent = new File([str], name, { type: "" })
+    console.log(data)
     const formdata = new FormData()
     formdata.append("file", fileContent)
     const request = new Request(`${uploadUrl}upload?forcefilename=${encodeURI(name)}`, {

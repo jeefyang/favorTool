@@ -108,10 +108,11 @@ const userUpdateIconUrl = async () => {
 }
 
 const updateUpload = async () => {
-
+  msg.value = "开始执行程序!"
   let name = await updateFilename(false)
+  msg.value = `${name} 文件已经生成,开始上传!`
   port.postMessage({ type: "upload", uploadUrl: uploadUrl.value, name: name, dbfile: iconUrl.value })
-
+msg.value = `${name} 文件正在上传!`
 }
 
 // const ontest = () => {
@@ -172,7 +173,7 @@ port.onMessage.addListener((m) => {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 
-div{
-  white-space:pre-line;
+div {
+  white-space: pre-line;
 }
 </style>
